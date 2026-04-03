@@ -227,6 +227,20 @@ export default function BookingPage() {
             <p className="text-sm text-gray-500 mb-1">Rappel :</p>
             <p className="text-white">Elite By S - 123 Rue de la Beauté, Paris</p>
           </div>
+          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-8 text-sm text-green-400">
+            ✅ Un message de confirmation WhatsApp a été préparé pour le salon.
+          </div>
+          
+          <button 
+            onClick={() => {
+              const message = encodeURIComponent(`Bonjour Elite By S, une nouvelle réservation a été faite :\n\n- Service : ${selectedService?.name}\n- Date : ${selectedDate}\n- Heure : ${selectedSlot}\n- Client : ${formData.name}\n- Tél : ${formData.phone}\n\nMerci !`);
+              window.open(`https://wa.me/213770945042?text=${message}`, '_blank');
+            }}
+            className="btn-primary w-full justify-center mb-4 flex items-center gap-2"
+          >
+            Envoyer la confirmation WhatsApp
+          </button>
+
           <button 
             onClick={() => window.location.reload()}
             className="btn-outline w-full"
