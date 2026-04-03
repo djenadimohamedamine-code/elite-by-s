@@ -62,9 +62,8 @@ export default function BookingPage() {
     <div className="py-8">
       {/* Header */}
       <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">Elite - By S</h1>
+        <h1 className="text-4xl font-bold mb-2">Elite By S</h1>
         <p className="text-gray-400">Votre parenthèse beauté d'exception</p>
-        <p className="text-[10px] text-gray-600 mt-2">v1.2 - Debug Mode</p>
       </header>
 
       {/* Progress Bar */}
@@ -136,10 +135,6 @@ export default function BookingPage() {
                 {slot}
               </button>
             ))}
-          </div>
-
-          <div className="text-[10px] text-gray-500 mb-4 text-center">
-            Date: {selectedDate || "(vide)"} | Créneau: {selectedSlot || "(vide)"}
           </div>
 
           <button 
