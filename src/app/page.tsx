@@ -64,6 +64,7 @@ export default function BookingPage() {
       <header className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-2">Elite By S</h1>
         <p className="text-gray-400">Votre parenthèse beauté d'exception</p>
+        <p className="text-[10px] text-gray-600 mt-2">v1.2 - Debug Mode</p>
       </header>
 
       {/* Progress Bar */}
@@ -137,17 +138,21 @@ export default function BookingPage() {
             ))}
           </div>
 
+          <div className="text-[10px] text-gray-500 mb-4 text-center">
+            Date: {selectedDate || "(vide)"} | Créneau: {selectedSlot || "(vide)"}
+          </div>
+
           <button 
+            type="button"
             onClick={() => {
               if (!selectedDate) {
-                alert("Veuillez choisir une date.");
+                alert("Erreur: La date est vide. Veuillez en choisir une valide.");
                 return;
               }
               if (!selectedSlot) {
-                alert("Veuillez choisir un créneau horaire.");
+                alert("Erreur: Le créneau est vide. Veuillez en choisir un.");
                 return;
               }
-              console.log("Next step clicked", { selectedDate, selectedSlot });
               nextStep();
             }}
             className="btn-primary w-full justify-center mt-4"
