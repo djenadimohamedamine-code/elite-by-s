@@ -5,10 +5,13 @@ import { Scissors, Sparkles, User, Calendar as CalendarIcon, Clock, CheckCircle 
 import { createBooking, Service } from "@/lib/bookings";
 
 const SERVICES: Service[] = [
-  { id: "1", name: "Coupe & Brushing", price: 45, duration: 60, description: "Coupe personnalisée et séchage professionnel." },
-  { id: "2", name: "Soin Visage Éclat", price: 60, duration: 45, description: "Un soin revitalisant pour redonner de l'éclat à votre peau." },
-  { id: "3", name: "Manucure Spa", price: 35, duration: 40, description: "Soin complet des mains et pose de vernis." },
-  { id: "4", name: "Maquillage Soirée", price: 50, duration: 60, description: "Look sublime pour vos événements spéciaux." },
+  { id: "1", name: "Onglerie complète", price: 5000, duration: 60, description: "Soin complet des ongles avec pose de vernis ou résine." },
+  { id: "2", name: "Extensions de cils", price: 5000, duration: 90, description: "Pose cil à cil pour un regard intense et naturel." },
+  { id: "3", name: "Lash / Brow Lift", price: 5000, duration: 45, description: "Rehaussement des cils ou des sourcils pour un effet structuré." },
+  { id: "4", name: "Coiffure & Brushing", price: 5000, duration: 60, description: "Soin capillaire professionnel et brushing sur mesure." },
+  { id: "5", name: "Épilation complète", price: 5000, duration: 45, description: "Épilation professionnelle pour une peau douce et soignée." },
+  { id: "6", name: "Soin Visage Hydrafacial", price: 5000, duration: 45, description: "Nettoyage en profondeur et hydratation intense du visage." },
+  { id: "7", name: "Soins Mains & Pieds", price: 5000, duration: 60, description: "Rituel de soin complet pour la beauté de vos mains et pieds." },
 ];
 
 export default function BookingPage() {
@@ -94,7 +97,7 @@ export default function BookingPage() {
               >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-lg text-white font-medium">{service.name}</h3>
-                  <span className="badge">{service.price}€</span>
+                  <span className="badge">{service.price} DA</span>
                 </div>
                 <p className="text-gray-400 text-sm mb-3">{service.description}</p>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
