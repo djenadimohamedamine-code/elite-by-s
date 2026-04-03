@@ -139,8 +139,11 @@ export default function BookingPage() {
 
           <button 
             disabled={!selectedDate || !selectedSlot}
-            onClick={nextStep}
-            className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => {
+              console.log("Next step clicked", { selectedDate, selectedSlot });
+              nextStep();
+            }}
+            className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed mt-4"
           >
             Continuer
           </button>
