@@ -25,6 +25,21 @@ export default function BookingPage() {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
+  // Auto-redirect to WhatsApp on success
+  useEffect(() => {
+    if (step === 4 && selectedService && selectedDate && selectedSlot) {
+      const message = encodeURIComponent(`Bonjour Elite By S, une nouvelle réservation a été faite :\n\n- Service : ${selectedService.name}\n- Date : ${selectedDate}\n- Heure : ${selectedSlot}\n- Client : ${formData.name}\n- Tél : ${formData.phone}\n\nLien : https://elite-by-s-booking.vercel.app/admin\n\nMerci !`);
+      const waLink = `https://wa.me/213770945042?text=${message}`;
+      
+      // Delay slightly to let the success UI show
+      const timer = setTimeout(() => {
+        window.open(waLink, '_blank');
+      }, 1500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
+
   const handleBooking = async () => {
     if (!selectedService || !selectedDate || !selectedSlot) return;
     
