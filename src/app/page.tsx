@@ -138,12 +138,19 @@ export default function BookingPage() {
           </div>
 
           <button 
-            disabled={!selectedDate || !selectedSlot}
             onClick={() => {
+              if (!selectedDate) {
+                alert("Veuillez choisir une date.");
+                return;
+              }
+              if (!selectedSlot) {
+                alert("Veuillez choisir un créneau horaire.");
+                return;
+              }
               console.log("Next step clicked", { selectedDate, selectedSlot });
               nextStep();
             }}
-            className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+            className="btn-primary w-full justify-center mt-4"
           >
             Continuer
           </button>
