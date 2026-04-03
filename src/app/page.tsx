@@ -33,7 +33,7 @@ export default function BookingPage() {
       
       // Delay slightly to let the success UI show
       const timer = setTimeout(() => {
-        window.open(waLink, '_blank');
+        window.location.href = waLink;
       }, 1500);
       
       return () => clearTimeout(timer);
