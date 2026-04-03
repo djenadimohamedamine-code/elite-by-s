@@ -221,7 +221,7 @@ export default function BookingPage() {
           </div>
           <h2 className="text-2xl font-bold mb-4">C'est réservé !</h2>
           <p className="text-gray-400 mb-8">
-            Merci {formData.name}, votre rendez-vous pour <strong>{selectedService?.name}</strong> est confirmé le <strong>{selectedDate}</strong> à <strong>{selectedSlot}</strong>.
+            Merci {formData.name}, votre rendez-vous pour <strong>{selectedService?.name}</strong> ({selectedService?.price} DA) est confirmé le <strong>{selectedDate}</strong> à <strong>{selectedSlot}</strong>.
           </p>
           <div className="glass-card text-left mb-8">
             <p className="text-sm text-gray-500 mb-1">Rappel :</p>
