@@ -1,0 +1,21 @@
+{
+  "name": "Elite By S | Salon de Beauté",
+  "short_name": "EliteByS",
+  "description": "Réservez votre séance de beauté chez Elite By S.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
