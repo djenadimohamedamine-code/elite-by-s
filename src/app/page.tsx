@@ -1,269 +1,408 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Scissors, Sparkles, User, Calendar as CalendarIcon, Clock, CheckCircle } from "lucide-react";
-import { createBooking, Service } from "@/lib/bookings";
+import {
+  Film, Code2, Wifi, Car, Smartphone, Globe,
+  Github, Mail, ExternalLink, ChevronRight,
+  Layers, Zap, Monitor, Coffee, Camera, Network,
+  Radio, Cpu, Eye, BrainCircuit, Server
+} from "lucide-react";
 
-const SERVICES: Service[] = [
-  { id: "1", name: "Onglerie complète", price: 5000, duration: 60, description: "Soin complet des ongles avec pose de vernis ou résine." },
-  { id: "2", name: "Extensions de cils", price: 5000, duration: 90, description: "Pose cil à cil pour un regard intense et naturel." },
-  { id: "3", name: "Lash / Brow Lift", price: 5000, duration: 45, description: "Rehaussement des cils ou des sourcils pour un effet structuré." },
-  { id: "4", name: "Coiffure & Brushing", price: 5000, duration: 60, description: "Soin capillaire professionnel et brushing sur mesure." },
-  { id: "5", name: "Épilation complète", price: 5000, duration: 45, description: "Épilation professionnelle pour une peau douce et soignée." },
-  { id: "6", name: "Soin Visage Hydrafacial", price: 5000, duration: 45, description: "Nettoyage en profondeur et hydratation intense du visage." },
-  { id: "7", name: "Soins Mains & Pieds", price: 5000, duration: 60, description: "Rituel de soin complet pour la beauté de vos mains et pieds." },
+// ── SKILLS DATA ───────────────────────────────────────────────────────────────
+
+const SKILL_GROUPS = [
+  {
+    label: "Streaming & Distribution",
+    icon: Radio,
+    color: "cyan",
+    items: ["HLS", "SRT", "WebRTC", "NDI Access Manager", "NDI Bridge", "Tailscale VPN", "ngrok", "Port Forwarding"],
+  },
+  {
+    label: "Broadcast Software",
+    icon: Monitor,
+    color: "orange",
+    items: ["vMix", "OBS Studio", "Wirecast", "Adobe Premiere Pro", "Resolume Arena"],
+  },
+  {
+    label: "Étalonnage & Scopes",
+    icon: Eye,
+    color: "purple",
+    items: ["DaVinci Resolve", "Waveform", "Vectorscope", "Parade Scope", "Étalonnage professionnel"],
+  },
+  {
+    label: "Caméras & Systèmes",
+    icon: Camera,
+    color: "orange",
+    items: ["Sony Alpha", "Sony XD Cameras", "Caméras PTZ", "NDI Camera Control"],
+  },
+  {
+    label: "Réseau & Infrastructure",
+    icon: Network,
+    color: "cyan",
+    items: ["IP statique", "Passerelle / Masque", "DNS public", "Câblage réseau", "Régie informatique", "Maintenance"],
+  },
+  {
+    label: "Développement",
+    icon: Code2,
+    color: "purple",
+    items: ["Flutter / Dart", "NDI SDK (iOS/Android/PC)", "Next.js", "TypeScript", "Firebase", "C++ NDK", "OBD-II KWP2000"],
+  },
+  {
+    label: "IA & Outils Créatifs",
+    icon: BrainCircuit,
+    color: "cyan",
+    items: ["Claude AI", "VS Code", "Prompt Engineering", "Génération photo/vidéo", "Veo 3", "LLM Workflows"],
+  },
 ];
 
-export default function BookingPage() {
-  const [step, setStep] = useState(1);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedSlot, setSelectedSlot] = useState("");
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+// ── PROJECTS DATA ─────────────────────────────────────────────────────────────
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
+const PROJECTS = [
+  {
+    id: "mimo-ndi-ios",
+    title: "MIMO NDI — iOS App",
+    subtitle: "Source NDI Broadcast Professionnelle",
+    description:
+      "Application iOS transformant un iPhone en source NDI pour OBS, vMix et Wirecast. Intègre le NDI SDK natif pour streaming zéro-latence vers toute régie broadcast. Déployée en conditions réelles à Echorouk TV.",
+    tech: ["Flutter", "NDI SDK", "iOS", "Swift", "C++ NDK"],
+    badge: "Broadcast",
+    badgeColor: "orange" as const,
+    icon: Monitor,
+    gradient: "linear-gradient(135deg, rgba(255,107,53,0.15), rgba(251,191,36,0.08))",
+    border: "rgba(255,107,53,0.3)",
+    files: ["lib/main.dart (39 KB)", "NdiCameraPreview.swift", "NDI 5/6 SDK"],
+  },
+  {
+    id: "ptz-dashboard",
+    title: "PTZ Remote Dashboard",
+    subtitle: "Contrôle PTZ via Tailscale Tunnel",
+    description:
+      "Dashboard iPhone complet pour réception et pilotage d'une caméra PTZ à distance. Flux NDI → HLS avec segmentation (~3s latence fluide) ou WebRTC quasi-temps-réel. Les opérateurs accèdent via un lien Tailscale Funnel sans être sur le réseau. Contrôles directionnels (gauche/droite/haut/bas) intégrés dans le même dashboard.",
+    tech: ["Flutter", "HLS", "WebRTC", "NDI", "Tailscale", "HLS Segmentation"],
+    badge: "Remote Control",
+    badgeColor: "cyan" as const,
+    icon: Camera,
+    gradient: "linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,145,234,0.06))",
+    border: "rgba(0,229,255,0.3)",
+    files: ["PTZ Controls (↑↓←→)", "HLS Player", "WebRTC Stream", "Tailscale Funnel"],
+  },
+  {
+    id: "ndi-tracking",
+    title: "NDI Vision — PC App",
+    subtitle: "Tracking IA & Alertes Automatiques",
+    description:
+      "Application PC recevant un flux NDI et appliquant de l'analyse video en temps réel : tracking de sujet, détection de surexposition, alerte flou (bougé/mise au point), et autres métriques qualité. Entièrement développée et fonctionnelle.",
+    tech: ["NDI SDK PC", "Computer Vision", "Tracking", "Python/C++"],
+    badge: "IA Vision",
+    badgeColor: "purple" as const,
+    icon: Eye,
+    gradient: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.06))",
+    border: "rgba(139,92,246,0.3)",
+    files: ["Tracking sujet", "Alerte surexposition", "Alerte flou", "NDI Input"],
+  },
+  {
+    id: "mimo-spark",
+    title: "Mimo Spark OBD-II",
+    subtitle: "Diagnostic Automobile Android",
+    description:
+      "Application Android dédiée à la Chevrolet Spark (KWP2000). Dashboard temps réel : RPM, vitesse, température, carburant. Scanner DTC avec protocole KWP2000 Fast-Init (ATFI), calcul de vitesse par rapport de boîte, GPS et historique.",
+    tech: ["Flutter", "OBD-II", "KWP2000", "ELM327", "GPS", "Firebase"],
+    badge: "Automotive",
+    badgeColor: "orange" as const,
+    icon: Car,
+    gradient: "linear-gradient(135deg, rgba(255,107,53,0.1), rgba(251,191,36,0.06))",
+    border: "rgba(255,107,53,0.25)",
+    files: ["obd_service.dart", "dtc_scanner.dart", "dashboard.dart", "diagnostic.dart", "map_page.dart"],
+  },
+  {
+    id: "elite-booking",
+    title: "Elite By S — Booking PWA",
+    subtitle: "Application de Réservation",
+    description:
+      "PWA Next.js pour salon de beauté haut de gamme. Booking flow complet, dashboard admin temps réel Firestore, notifications WhatsApp automatiques. Déployée sur Vercel.",
+    tech: ["Next.js", "Firebase", "TypeScript", "PWA", "Vercel"],
+    badge: "Web App",
+    badgeColor: "purple" as const,
+    icon: Globe,
+    gradient: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))",
+    border: "rgba(139,92,246,0.25)",
+    files: ["bookings.ts", "admin/page.tsx", "notifications-func.js"],
+  },
+];
 
-  // Auto-redirect to WhatsApp on success
+// ── COMPONENT ─────────────────────────────────────────────────────────────────
+
+export default function Portfolio() {
+  const [scrolled, setScrolled] = useState(false);
+  const [typed, setTyped] = useState("");
+  const fullText = "Broadcast Engineer & Developer";
+
   useEffect(() => {
-    if (step === 4 && selectedService && selectedDate && selectedSlot) {
-      const message = encodeURIComponent(`Bonjour Elite By S, une nouvelle réservation a été faite :\n\n- Service : ${selectedService.name}\n- Date : ${selectedDate}\n- Heure : ${selectedSlot}\n- Client : ${formData.name}\n- Tél : ${formData.phone}\n\nLien : https://elite-by-s-booking.vercel.app/admin\n\nMerci !`);
-      const waLink = `https://wa.me/213770945042?text=${message}`;
-      
-      // Delay slightly to let the success UI show
-      const timer = setTimeout(() => {
-        window.location.href = waLink;
-      }, 1500);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [step]);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const handleBooking = async () => {
-    if (!selectedService || !selectedDate || !selectedSlot) return;
-    
-    setIsSubmitting(true);
-    try {
-      const bookingDateTime = new Date(`${selectedDate}T${selectedSlot}:00`);
-      
-      // Check for conflicts
-      const { isSlotAvailable } = await import("@/lib/bookings");
-      const available = await isSlotAvailable(bookingDateTime, selectedService.duration);
-      
-      if (!available) {
-        alert("Désolé, ce créneau vient d'être réservé. Veuillez en choisir un autre.");
-        setIsSubmitting(false);
-        setStep(2); // Go back to slot selection
-        return;
-      }
+  useEffect(() => {
+    let i = 0;
+    const timer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setTyped(fullText.slice(0, i + 1));
+        i++;
+        if (i >= fullText.length) clearInterval(interval);
+      }, 55);
+      return () => clearInterval(interval);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
 
-      await createBooking({
-        customerName: formData.name,
-        customerPhone: formData.phone,
-        customerEmail: formData.email,
-        serviceId: selectedService.id,
-        serviceName: selectedService.name,
-        dateTime: bookingDateTime,
-        duration: selectedService.duration,
-      });
-      nextStep();
-    } catch (error) {
-      console.error("Booking failed:", error);
-      alert("Une erreur est survenue lors de la réservation. Veuillez réessayer.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  const colorMap: Record<string, string> = {
+    cyan: "var(--accent-cyan)",
+    orange: "var(--accent-orange)",
+    purple: "var(--accent-purple)",
   };
 
   return (
-    <div className="py-8">
-      {/* Header */}
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">Elite By S</h1>
-        <p className="text-gray-400">Votre parenthèse beauté d'exception</p>
-      </header>
+    <>
+      <div className="glow glow-1" />
+      <div className="glow glow-2" />
+      <div className="glow glow-3" />
 
-      {/* Progress Bar */}
-      <div className="flex justify-between mb-8 px-4">
-        {[1, 2, 3].map((i) => (
-          <div 
-            key={i} 
-            className={`h-1 flex-1 mx-1 rounded ${step >= i ? 'bg-primary' : 'bg-gray-800'}`}
-          />
-        ))}
-      </div>
-
-      {/* Step 1: Service Selection */}
-      {step === 1 && (
-        <section className="animate-fade-in">
-          <h2 className="section-title text-xl mb-6 flex items-center justify-center gap-2">
-            <Scissors size={20} /> Choisissez un service
-          </h2>
-          <div className="grid gap-4">
-            {SERVICES.map((service) => (
-              <div 
-                key={service.id} 
-                className={`glass-card cursor-pointer border-2 ${selectedService?.id === service.id ? 'border-primary' : 'border-transparent'}`}
-                onClick={() => {
-                  setSelectedService(service);
-                  nextStep();
-                }}
+      {/* ── NAVBAR ── */}
+      <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+        <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: "1.05rem", letterSpacing: "-0.01em" }}>
+            <span style={{ color: "var(--accent-cyan)" }}>MIMO</span>
+            <span style={{ color: "var(--text-secondary)" }}>-</span>
+            <span>NDI</span>
+          </span>
+          <div style={{ display: "flex", gap: "1.5rem" }}>
+            {[
+              { label: "Compétences", href: "#competences" },
+              { label: "Projets", href: "#projets" },
+              { label: "Contact", href: "#contact" },
+            ].map((link) => (
+              <a key={link.label} href={link.href}
+                style={{ fontSize: "0.85rem", color: "var(--text-secondary)", transition: "color 0.2s ease" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
               >
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg text-white font-medium">{service.name}</h3>
-                  <span className="badge">{service.price} DA</span>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* ── HERO ── */}
+      <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: "6rem", position: "relative" }}>
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+
+          {/* Company badge */}
+          <div className="animate-up" style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1.5rem" }}>
+            <span className="badge badge-orange" id="badge-company">
+              <span className="status-dot" style={{ background: "var(--accent-orange)", borderColor: "var(--accent-orange)" }} />
+              Echorouk TV · Ingénieur Broadcast
+            </span>
+          </div>
+
+          {/* Name */}
+          <h1 className="animate-up-2" style={{ fontSize: "clamp(2.2rem, 7vw, 4rem)", marginBottom: "0.75rem", letterSpacing: "-0.025em" }}>
+            Djenadi{" "}
+            <span style={{ background: "var(--gradient-cyan)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Mohamed Amine
+            </span>
+          </h1>
+
+          {/* Typewriter */}
+          <p className="animate-up-3" style={{
+            fontSize: "clamp(0.95rem, 2.5vw, 1.25rem)",
+            color: "var(--text-secondary)",
+            fontFamily: "'Space Grotesk', sans-serif",
+            marginBottom: "1.5rem",
+            minHeight: "2rem",
+          }}>
+            &gt; {typed}<span className="cursor" style={{ color: "var(--accent-cyan)" }}>_</span>
+          </p>
+
+          {/* Description */}
+          <p className="animate-up-4" style={{
+            maxWidth: "580px", color: "var(--text-secondary)",
+            fontSize: "0.925rem", lineHeight: "1.85", marginBottom: "2.5rem",
+          }}>
+            Ingénieur broadcast à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span>. 
+            Je maîtrise la chaîne complète du signal vidéo : de la caméra PTZ au flux&nbsp;
+            <span style={{ color: "var(--accent-cyan)" }}>NDI/HLS/SRT/WebRTC</span>, 
+            en passant par l'étalonnage, le câblage réseau, et le développement d'applications mobiles sur mesure.
+          </p>
+
+          {/* CTA */}
+          <div className="animate-up-4" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "3.5rem" }}>
+            <a href="#projets" className="btn btn-primary" id="cta-projects">
+              Voir mes projets <ChevronRight size={16} />
+            </a>
+            <a href="#contact" className="btn btn-outline" id="cta-contact">
+              Me contacter
+            </a>
+          </div>
+
+          {/* Stats */}
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(4, auto)", gap: "2rem",
+            paddingTop: "2rem", borderTop: "1px solid var(--border)", width: "fit-content",
+          }}>
+            {[
+              { value: "NDI", label: "SDK maîtrisé" },
+              { value: "HLS·SRT", label: "Streaming" },
+              { value: "5+", label: "Apps déployées" },
+              { value: "PTZ", label: "Remote control" },
+            ].map((s) => (
+              <div key={s.label}>
+                <div style={{ fontSize: "1.25rem", fontWeight: 800, fontFamily: "'Space Grotesk', sans-serif", background: "var(--gradient-cyan)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  {s.value}
                 </div>
-                <p className="text-gray-400 text-sm mb-3">{service.description}</p>
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <Clock size={14} /> {service.duration} min
-                </div>
+                <div style={{ fontSize: "0.73rem", color: "var(--text-muted)", marginTop: "0.1rem" }}>{s.label}</div>
               </div>
             ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* Step 2: Date & Slot Selection */}
-      {step === 2 && (
-        <section className="animate-fade-in">
-          <button onClick={prevStep} className="text-sm text-gray-400 mb-6 flex items-center gap-1">
-            ← Retour aux services
-          </button>
-          <h2 className="section-title text-xl mb-6 flex items-center justify-center gap-2">
-            <CalendarIcon size={20} /> Date & Créneau
-          </h2>
-          
-          <div className="glass-card mb-6">
-             <input 
-              type="date" 
-              className="w-full bg-transparent border-none text-white focus:ring-0" 
-              onChange={(e) => setSelectedDate(e.target.value)}
-              min={new Date().toISOString().split('T')[0]}
-            />
+      {/* ── SKILLS ── */}
+      <section id="competences" style={{ padding: "var(--section-gap) 0", position: "relative", zIndex: 1 }}>
+        <div className="container">
+          <h2 className="section-title">Compétences</h2>
+          <div className="divider divider-cyan" />
+          <p className="section-subtitle">Maîtrise complète de la chaîne broadcast & développement</p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1rem" }}>
+            {SKILL_GROUPS.map((group) => {
+              const Icon = group.icon;
+              const col = colorMap[group.color];
+              return (
+                <div key={group.label} className="card">
+                  <div style={{ position: "relative", zIndex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1rem" }}>
+                      <div style={{ width: 34, height: 34, borderRadius: 8, background: `${col}18`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Icon size={17} color={col} />
+                      </div>
+                      <span style={{ fontWeight: 600, fontSize: "0.82rem", color: col }}>{group.label}</span>
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                      {group.items.map((item) => (
+                        <span key={item} className="skill-pill">{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-3 gap-3 mb-8">
-            {["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"].map((slot) => (
-              <button 
-                key={slot}
-                className={`p-3 rounded-lg border ${selectedSlot === slot ? 'border-primary bg-primary/10 text-primary' : 'border-gray-800 text-gray-400'}`}
-                onClick={() => setSelectedSlot(slot)}
-              >
-                {slot}
-              </button>
-            ))}
+      {/* ── PROJECTS ── */}
+      <section id="projets" style={{ padding: "var(--section-gap) 0", position: "relative", zIndex: 1 }}>
+        <div className="container">
+          <h2 className="section-title">Projets réalisés</h2>
+          <div className="divider divider-orange" />
+          <p className="section-subtitle">Applications déployées et systèmes opérationnels</p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            {PROJECTS.map((project) => {
+              const Icon = project.icon;
+              return (
+                <div key={project.id} id={`project-${project.id}`} className="card"
+                  style={{ borderColor: project.border, background: project.gradient }}
+                >
+                  <div style={{ position: "relative", zIndex: 1 }}>
+                    {/* Header */}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                        <div style={{ width: 42, height: 42, borderRadius: 10, background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <Icon size={19} color="var(--text-secondary)" />
+                        </div>
+                        <div>
+                          <h3 style={{ fontSize: "1rem", color: "var(--text-primary)", fontWeight: 700 }}>{project.title}</h3>
+                          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>{project.subtitle}</p>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
+                        <span className="status-dot" />
+                        <span className={`badge badge-${project.badgeColor}`}>{project.badge}</span>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: "1.8", marginBottom: "1rem" }}>
+                      {project.description}
+                    </p>
+
+                    {/* Files (technical depth) */}
+                    <div style={{ background: "rgba(0,0,0,0.25)", borderRadius: 8, padding: "0.6rem 0.8rem", marginBottom: "0.85rem", fontFamily: "monospace", fontSize: "0.73rem" }}>
+                      <div style={{ color: "var(--text-muted)", marginBottom: "0.3rem", fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>Modules</div>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                        {project.files.map((f) => (
+                          <span key={f} style={{ color: "var(--accent-cyan)", background: "rgba(0,229,255,0.07)", padding: "0.15rem 0.5rem", borderRadius: 4 }}>
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tech tags */}
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                      {project.tech.map((t) => (
+                        <span key={t} className="badge badge-gray">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+        </div>
+      </section>
 
-          <button 
-            type="button"
-            onClick={() => {
-              if (!selectedDate) {
-                alert("Erreur: La date est vide. Veuillez en choisir une valide.");
-                return;
-              }
-              if (!selectedSlot) {
-                alert("Erreur: Le créneau est vide. Veuillez en choisir un.");
-                return;
-              }
-              nextStep();
-            }}
-            className="btn-primary w-full justify-center mt-4"
-          >
-            Continuer
-          </button>
-        </section>
-      )}
+      {/* ── CONTACT ── */}
+      <section id="contact" style={{ padding: "var(--section-gap) 0 6rem", position: "relative", zIndex: 1 }}>
+        <div className="container">
+          <h2 className="section-title">Contact</h2>
+          <div className="divider divider-purple" />
+          <p className="section-subtitle">Collaborations broadcast, développement ou consulting réseau</p>
 
-      {/* Step 3: Customer Info */}
-      {step === 3 && (
-        <section className="animate-fade-in">
-          <button onClick={prevStep} className="text-sm text-gray-400 mb-6 flex items-center gap-1">
-            ← Retour au créneau
-          </button>
-          <h2 className="section-title text-xl mb-6 flex items-center justify-center gap-2">
-            <User size={20} /> Vos informations
-          </h2>
-          
-          <div className="glass-card mb-8 space-y-4">
-            <div>
-              <label className="text-xs text-gray-500 uppercase block mb-1">Nom complet</label>
-              <input 
-                type="text" 
-                placeholder="Ex: Jean Dupont"
-                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-primary outline-none"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-              />
+          <div className="card" style={{ borderColor: "rgba(139,92,246,0.3)", background: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))", maxWidth: 540 }}>
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", marginBottom: "1.5rem", lineHeight: "1.85" }}>
+                Disponible pour des projets en streaming broadcast, développement mobile Flutter/NDI, ou consulting infrastructure réseau. 
+                Je travaille à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span> et suis ouvert à des missions complémentaires.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <a href="mailto:djenadimohamedamine@gmail.com" id="contact-email"
+                  className="btn btn-outline" style={{ justifyContent: "flex-start", width: "fit-content" }}>
+                  <Mail size={15} color="var(--accent-purple)" />
+                  djenadimohamedamine@gmail.com
+                </a>
+                <a href="https://github.com/djenadimohamedamine-code" id="contact-github"
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn btn-outline" style={{ justifyContent: "flex-start", width: "fit-content" }}>
+                  <Github size={15} />
+                  github.com/djenadimohamedamine-code
+                  <ExternalLink size={11} style={{ opacity: 0.5 }} />
+                </a>
+              </div>
             </div>
-            <div>
-              <label className="text-xs text-gray-500 uppercase block mb-1">Téléphone</label>
-              <input 
-                type="tel" 
-                placeholder="06 12 34 56 78"
-                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-primary outline-none"
-                value={formData.phone}
-                onChange={(e) => setFormData({...formData, phone: e.target.value})}
-              />
-            </div>
-            <div>
-              <label className="text-xs text-gray-500 uppercase block mb-1">Email (facultatif)</label>
-              <input 
-                type="email" 
-                placeholder="jean@example.com"
-                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-primary outline-none"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-              />
-            </div>
           </div>
+        </div>
+      </section>
 
-          <button 
-            disabled={!formData.name || !formData.phone || isSubmitting}
-            onClick={handleBooking}
-            className="btn-primary w-full justify-center disabled:opacity-50"
-          >
-            {isSubmitting ? "Traitement..." : "Confirmer la réservation"}
-          </button>
-        </section>
-      )}
-
-      {/* Success Step */}
-      {step === 4 && (
-        <section className="text-center py-10 animate-fade-in">
-          <div className="flex justify-center mb-6">
-            <CheckCircle size={80} className="text-primary" strokeWidth={1} />
-          </div>
-          <h2 className="text-2xl font-bold mb-4">C'est réservé !</h2>
-          <p className="text-gray-400 mb-8">
-            Merci {formData.name}, votre rendez-vous pour <strong>{selectedService?.name}</strong> ({selectedService?.price} DA) est confirmé le <strong>{selectedDate}</strong> à <strong>{selectedSlot}</strong>.
-          </p>
-          <div className="glass-card text-left mb-8">
-            <p className="text-sm text-gray-500 mb-1">Rappel :</p>
-            <p className="text-white">Elite By S - 123 Rue de la Beauté, Paris</p>
-          </div>
-          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mb-8 text-sm text-green-400">
-            ✅ Un message de confirmation WhatsApp a été préparé pour le salon.
-          </div>
-          
-          <button 
-            onClick={() => {
-              const message = encodeURIComponent(`Bonjour Elite By S, une nouvelle réservation a été faite :\n\n- Service : ${selectedService?.name}\n- Date : ${selectedDate}\n- Heure : ${selectedSlot}\n- Client : ${formData.name}\n- Tél : ${formData.phone}\n\nMerci !`);
-              window.open(`https://wa.me/213770945042?text=${message}`, '_blank');
-            }}
-            className="btn-primary w-full justify-center mb-4 flex items-center gap-2"
-          >
-            Envoyer la confirmation WhatsApp
-          </button>
-
-          <button 
-            onClick={() => window.location.reload()}
-            className="btn-outline w-full"
-          >
-            Faire une autre réservation
-          </button>
-        </section>
-      )}
-    </div>
+      {/* ── FOOTER ── */}
+      <footer style={{ borderTop: "1px solid var(--border)", padding: "1.25rem 0", textAlign: "center", color: "var(--text-muted)", fontSize: "0.78rem", position: "relative", zIndex: 1 }}>
+        <div className="container">
+          <Coffee size={11} style={{ display: "inline", verticalAlign: "middle", marginRight: 4 }} />
+          MIMO-NDI · Djenadi Mohamed Amine · Echorouk TV · {new Date().getFullYear()}
+        </div>
+      </footer>
+    </>
   );
 }

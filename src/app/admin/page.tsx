@@ -57,8 +57,8 @@ export default function AdminDashboard() {
       {/* Admin Header */}
       <div className="flex justify-between items-center mb-10 px-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Elite By S</h1>
-          <p className="text-primary text-sm font-medium">Espace Administration</p>
+          <h1 className="text-2xl font-bold text-white">MIMO-NDI</h1>
+          <p className="text-primary text-sm font-medium">Control Center</p>
         </div>
         <div className="flex gap-2">
            <button 
