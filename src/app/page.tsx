@@ -70,9 +70,12 @@ const PROJECTS = [
     icon: Monitor,
     gradient: "linear-gradient(135deg, rgba(255,107,53,0.15), rgba(251,191,36,0.08))",
     border: "rgba(255,107,53,0.3)",
-    files: ["lib/main.dart (39 KB)", "NdiCameraPreview.swift", "NDI 5/6 SDK"],
+    files: ["Capture NDI", "Latency control", "Remote monitor", "Rec/Streaming"],
+    videos: [
+      { src: "/videos/ios-1.mp4", filter: "none" },
+      { src: "/videos/ios-2.mp4", filter: "none" },
+    ],
     localRoute: "/code/mimo-ndi-ios",
-    video: "/videos/mimo-ndi-ios.mp4",
   },
   {
     id: "ptz-dashboard",
@@ -422,12 +425,20 @@ export default function Portfolio() {
                           onEnded={(e) => {
                             const vids: {src: string; filter: string}[] = (project as any).videos;
                             const vid = e.currentTarget;
-                            const currentFile = vid.src.split('/').pop();
-                            const idx = vids.findIndex(v => v.src.includes(currentFile || ''));
-                            const next = vids[(idx + 1) % vids.length];
+                            const currentSrc = vid.src;
+                            const currentFile = currentSrc.split('/').pop();
+                            
+                            // Find current video index
+                            let idx = vids.findIndex(v => v.src.split('/').pop() === currentFile);
+                            
+                            // Next video (looping)
+                            const nextIdx = (idx + 1) % vids.length;
+                            const next = vids[nextIdx];
+                            
                             vid.src = next.src;
-                            vid.style.filter = next.filter;
-                            vid.play();
+                            vid.style.filter = next.filter || "none";
+                            vid.load(); // Ensure next one loads
+                            vid.play().catch(err => console.log("Autoplay blocked:", err));
                           }}
                         >
                           <source src={(project as any).videos[0].src} type="video/mp4" />
