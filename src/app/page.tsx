@@ -72,6 +72,7 @@ const PROJECTS = [
     border: "rgba(255,107,53,0.3)",
     files: ["lib/main.dart (39 KB)", "NdiCameraPreview.swift", "NDI 5/6 SDK"],
     localRoute: "/code/mimo-ndi-ios",
+    video: "/videos/mimo-ndi-ios.mp4",
   },
   {
     id: "ptz-dashboard",
@@ -318,9 +319,16 @@ export default function Portfolio() {
               const Icon = project.icon;
               return (
                 <div key={project.id} id={`project-${project.id}`} className="card"
-                  style={{ borderColor: project.border, background: project.gradient }}
+                  style={{ borderColor: project.border, background: project.gradient, display: "flex", flexDirection: "column" }}
                 >
-                  <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", flex: 1 }}>
+                    {/* Optional Video Demo */}
+                    {(project as any).video && (
+                      <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
+                        <video src={(project as any).video} autoPlay loop muted playsInline style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover" }} />
+                      </div>
+                    )}
+
                     {/* Header */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
