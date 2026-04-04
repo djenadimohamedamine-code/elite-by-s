@@ -71,6 +71,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(255,107,53,0.15), rgba(251,191,36,0.08))",
     border: "rgba(255,107,53,0.3)",
     files: ["lib/main.dart (39 KB)", "NdiCameraPreview.swift", "NDI 5/6 SDK"],
+    github: "https://github.com/djenadimohamedamine-code/MIMO_IOS",
   },
   {
     id: "ptz-dashboard",
@@ -85,6 +86,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,145,234,0.06))",
     border: "rgba(0,229,255,0.3)",
     files: ["PTZ Controls (↑↓←→)", "HLS Player", "WebRTC Stream", "Tailscale Funnel"],
+    github: "https://github.com/djenadimohamedamine-code",
   },
   {
     id: "ndi-tracking",
@@ -99,6 +101,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.06))",
     border: "rgba(139,92,246,0.3)",
     files: ["Tracking sujet", "Alerte surexposition", "Alerte flou", "NDI Input"],
+    github: "https://github.com/djenadimohamedamine-code",
   },
   {
     id: "mimo-spark",
@@ -113,6 +116,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(255,107,53,0.1), rgba(251,191,36,0.06))",
     border: "rgba(255,107,53,0.25)",
     files: ["obd_service.dart", "dtc_scanner.dart", "dashboard.dart", "diagnostic.dart", "map_page.dart"],
+    github: "https://github.com/djenadimohamedamine-code/spark",
   },
   {
     id: "elite-booking",
@@ -127,6 +131,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))",
     border: "rgba(139,92,246,0.25)",
     files: ["bookings.ts", "admin/page.tsx", "notifications-func.js"],
+    github: "https://github.com/djenadimohamedamine-code/elite-by-s",
   },
 ];
 
@@ -351,11 +356,25 @@ export default function Portfolio() {
                     </div>
 
                     {/* Tech tags */}
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "1rem" }}>
                       {project.tech.map((t) => (
                         <span key={t} className="badge badge-gray">{t}</span>
                       ))}
                     </div>
+
+                    {/* GitHub Link */}
+                    {project.github && (
+                      <div style={{ marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1rem" }}>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer"
+                           style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 500, transition: "color 0.2s" }}
+                           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}>
+                          <Github size={14} />
+                          Voir le code sur GitHub
+                          <ExternalLink size={10} style={{ opacity: 0.5 }} />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
