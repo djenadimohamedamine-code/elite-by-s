@@ -95,22 +95,6 @@ const PROJECTS = [
     github: "https://github.com/djenadimohamedamine-code",
   },
   {
-    id: "ndi-tracking",
-    title: "NDI Vision — PC App",
-    subtitle: "Tracking IA & Alertes Automatiques",
-    description:
-      "Application PC recevant un flux NDI et appliquant de l'analyse video en temps réel : tracking de sujet, détection de surexposition, alerte flou (bougé/mise au point), et autres métriques qualité. Entièrement développée et fonctionnelle.",
-    tech: ["NDI SDK PC", "Computer Vision", "Tracking", "Python/C++"],
-    badge: "IA Vision",
-    badgeColor: "purple" as const,
-    icon: Eye,
-    gradient: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.06))",
-    border: "rgba(139,92,246,0.3)",
-    files: ["Tracking sujet", "Alerte surexposition", "Alerte flou", "NDI Input"],
-    video: "/videos/ndi-vision.mp4",
-    github: "https://github.com/djenadimohamedamine-code",
-  },Refining NDI description for visibility:
-  {
     id: "ndi-vision",
     title: "NDI Vision — PC App",
     subtitle: "Tracking IA & Surveillance Flou",
