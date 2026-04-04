@@ -178,8 +178,29 @@ export default function Portfolio() {
       <div className="glow glow-2" />
       <div className="glow glow-3" />
 
+      {/* ── SYSTEM STATUS BAR ── */}
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, height: '28px',
+        background: 'rgba(3,5,10,0.85)', backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--border)', zIndex: 1000,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 1.25rem', fontSize: '0.6rem', fontFamily: 'monospace',
+        color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <div className="status-dot" style={{ width: '5px', height: '5px' }} />
+            <span style={{ color: 'var(--accent-cyan)' }}>Signal Live</span>
+          </div>
+          <span>Uptime: 99.9%</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+          <span className="hide-mobile">MIMO-NDI // BROADCAST_ENGINE_v4.5</span>
+        </div>
+      </div>
+
       {/* ── NAVBAR ── */}
-      <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+      <nav className={`nav ${scrolled ? "scrolled" : ""}`} style={{ top: '28px' }}>
         <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: "1.05rem", letterSpacing: "-0.01em" }}>
             <span style={{ color: "var(--accent-cyan)" }}>MIMO</span>
@@ -209,10 +230,13 @@ export default function Portfolio() {
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
 
           {/* Company badge */}
-          <div className="animate-up" style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1.5rem" }}>
-            <span className="badge badge-orange" id="badge-company">
-              <span className="status-dot" style={{ background: "var(--accent-orange)", borderColor: "var(--accent-orange)" }} />
-              Echorouk TV · Ingénieur Broadcast
+          <div className="animate-up" style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "2rem" }}>
+            <span className="badge badge-cyan" style={{ border: '1px solid var(--accent-cyan)', background: 'rgba(0,242,255,0.05)' }}>
+              <Zap size={12} fill="currentColor" />
+              Available for Production
+            </span>
+            <span className="badge badge-orange" style={{ opacity: 0.8 }}>
+              Echorouk TV
             </span>
           </div>
 
@@ -285,22 +309,22 @@ export default function Portfolio() {
           <div className="divider divider-cyan" />
           <p className="section-subtitle">Maîtrise complète de la chaîne broadcast & développement</p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1rem" }}>
-            {SKILL_GROUPS.map((group) => {
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }}>
+            {SKILL_GROUPS.map((group, idx) => {
               const Icon = group.icon;
               const col = colorMap[group.color];
               return (
-                <div key={group.label} className="card">
+                <div key={group.label} className="card animate-up" style={{ animationDelay: `${idx * 0.1}s` }}>
                   <div style={{ position: "relative", zIndex: 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1rem" }}>
-                      <div style={{ width: 34, height: 34, borderRadius: 8, background: `${col}18`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Icon size={17} color={col} />
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1.25rem" }}>
+                      <div style={{ width: 38, height: 38, borderRadius: 10, background: `${col}15`, border: `1px solid ${col}30`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Icon size={18} color={col} />
                       </div>
-                      <span style={{ fontWeight: 600, fontSize: "0.82rem", color: col }}>{group.label}</span>
+                      <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text-primary)", letterSpacing: "-0.01em" }}>{group.label}</span>
                     </div>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                       {group.items.map((item) => (
-                        <span key={item} className="skill-pill">{item}</span>
+                        <span key={item} className="skill-pill" style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem' }}>{item}</span>
                       ))}
                     </div>
                   </div>
@@ -323,7 +347,13 @@ export default function Portfolio() {
               const Icon = project.icon;
               return (
                 <div key={project.id} id={`project-${project.id}`} className="card"
-                  style={{ borderColor: project.border, background: project.gradient, display: "flex", flexDirection: "column" }}
+                  style={{ 
+                    borderColor: project.border, 
+                    background: project.gradient, 
+                    display: "flex", 
+                    flexDirection: "column",
+                    boxShadow: project.id === 'mimo-spark' ? '0 0 40px -20px var(--accent-orange)' : 'none'
+                  }}
                 >
                   <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", flex: 1 }}>
                     {/* Optional Video Demo — single */}
