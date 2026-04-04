@@ -88,8 +88,6 @@ const PROJECTS = [
     border: "rgba(0,229,255,0.3)",
     files: ["PTZ Controls (↑↓←→)", "HLS Player", "WebRTC Stream", "Tailscale Funnel"],
     github: "https://github.com/djenadimohamedamine-code",
-    video: "/videos/ptz-dashboard.mp4",
-    videoFilter: "brightness(0.9) contrast(1.15) saturate(1.1)",
   },
   {
     id: "ndi-tracking",
@@ -105,8 +103,6 @@ const PROJECTS = [
     border: "rgba(139,92,246,0.3)",
     files: ["Tracking sujet", "Alerte surexposition", "Alerte flou", "NDI Input"],
     github: "https://github.com/djenadimohamedamine-code",
-    video: "/videos/ndi-tracking.mp4",
-    videoFilter: "brightness(0.85) contrast(1.2) saturate(0.95)",
   },
   {
     id: "mimo-spark",
@@ -122,6 +118,10 @@ const PROJECTS = [
     border: "rgba(255,107,53,0.25)",
     files: ["obd_service.dart", "dtc_scanner.dart", "dashboard.dart", "diagnostic.dart", "map_page.dart"],
     localRoute: "/code/mimo-spark",
+    videos: [
+      { src: "/videos/obd-spark-1.mp4", filter: "none" },
+      { src: "/videos/obd-spark-2.mp4", filter: "brightness(0.85) contrast(1.2) saturate(0.9)" },
+    ],
   },
   {
     id: "elite-booking",
@@ -326,10 +326,32 @@ export default function Portfolio() {
                   style={{ borderColor: project.border, background: project.gradient, display: "flex", flexDirection: "column" }}
                 >
                   <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", flex: 1 }}>
-                    {/* Optional Video Demo */}
+                    {/* Optional Video Demo — single */}
                     {(project as any).video && (
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
                         <video src={(project as any).video} autoPlay loop muted playsInline style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }} />
+                      </div>
+                    )}
+
+                    {/* Optional Video Demo — multi-video sequential */}
+                    {(project as any).videos && (
+                      <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
+                        <video
+                          key={(project as any).videos[0].src}
+                          src={(project as any).videos[0].src}
+                          autoPlay muted playsInline
+                          style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videos[0].filter }}
+                          onEnded={(e) => {
+                            const vids: {src: string; filter: string}[] = (project as any).videos;
+                            const vid = e.currentTarget;
+                            const currentSrc = vid.src.split('/').pop();
+                            const idx = vids.findIndex(v => v.src.includes(currentSrc || ''));
+                            const next = vids[(idx + 1) % vids.length];
+                            vid.style.filter = next.filter;
+                            vid.src = next.src;
+                            vid.play();
+                          }}
+                        />
                       </div>
                     )}
 
