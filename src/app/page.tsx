@@ -105,6 +105,8 @@ const PROJECTS = [
     border: "rgba(139,92,246,0.3)",
     files: ["Tracking sujet", "Alerte surexposition", "Alerte flou", "NDI Input"],
     github: "https://github.com/djenadimohamedamine-code",
+    video: "/videos/ndi-tracking.mp4",
+    videoFilter: "brightness(0.85) contrast(1.2) saturate(0.95)",
   },
   {
     id: "mimo-spark",
