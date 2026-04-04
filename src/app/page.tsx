@@ -138,6 +138,21 @@ const PROJECTS = [
     files: ["bookings.ts", "admin/page.tsx", "notifications-func.js"],
     localRoute: "/code/elite-booking",
   },
+  {
+    id: "nano-banana",
+    title: "Nano Banana Photo IA",
+    subtitle: "Génération & Traitement d'Image 4K",
+    description:
+      "Showcase de création visuelle assistée par Intelligence Artificielle. Un workflow complet de prompt engineering et d'upscaling pour obtenir des rendus cinématographiques ultra-détaillés en résolution 4K.",
+    tech: ["AI Generation", "Prompt Engineering", "Upscaling 4K", "Midjourney/Veo"],
+    badge: "AI Art",
+    badgeColor: "purple" as const,
+    icon: BrainCircuit,
+    gradient: "linear-gradient(135deg, rgba(167,139,250,0.1), rgba(236,72,153,0.06))",
+    border: "rgba(167,139,250,0.3)",
+    files: ["Prompt design", "Upscale config", "4K Render"],
+    image: "/images/nano-banana.jpg",
+  },
 ];
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
@@ -356,6 +371,13 @@ export default function Portfolio() {
                   }}
                 >
                   <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", flex: 1 }}>
+                    {/* Optional Image Preview */}
+                    {(project as any).image && (
+                      <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
+                        <img src={(project as any).image} alt={project.title} style={{ width: "100%", maxHeight: "350px", display: "block", objectFit: "cover" }} />
+                      </div>
+                    )}
+
                     {/* Optional Video Demo — single */}
                     {(project as any).video && (
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
