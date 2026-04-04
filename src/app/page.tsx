@@ -5,7 +5,7 @@ import {
   Film, Code2, Wifi, Car, Smartphone, Globe,
   Github, Mail, ExternalLink, ChevronRight,
   Layers, Zap, Monitor, Coffee, Camera, Network,
-  Radio, Cpu, Eye, BrainCircuit, Server
+  Radio, Cpu, Eye, BrainCircuit, Server, MessageCircle
 } from "lucide-react";
 
 // ── SKILLS DATA ───────────────────────────────────────────────────────────────
@@ -378,6 +378,12 @@ export default function Portfolio() {
                 Je travaille à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span> et suis ouvert à des missions complémentaires.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <a href="https://wa.me/213770945042?text=Bonjour%20Mohamed%20Amine,%20je%20viens%20depuis%20ton%20portfolio" id="contact-whatsapp"
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn btn-primary" style={{ justifyContent: "flex-start", width: "fit-content", background: "var(--gradient-cyan)", color: "#000" }}>
+                  <MessageCircle size={15} />
+                  WhatsApp : +213 770 94 50 42
+                </a>
                 <a href="mailto:djenadimohamedamine@gmail.com" id="contact-email"
                   className="btn btn-outline" style={{ justifyContent: "flex-start", width: "fit-content" }}>
                   <Mail size={15} color="var(--accent-purple)" />
