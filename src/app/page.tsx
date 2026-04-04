@@ -359,7 +359,16 @@ export default function Portfolio() {
                     {/* Optional Video Demo — single */}
                     {(project as any).video && (
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
-                        <video src={(project as any).video} autoPlay loop muted playsInline style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }} />
+                        <video 
+                          autoPlay={true} 
+                          loop={true} 
+                          muted={true} 
+                          playsInline={true} 
+                          preload="auto"
+                          style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }} 
+                        >
+                          <source src={(project as any).video} type="video/mp4" />
+                        </video>
                       </div>
                     )}
 
@@ -368,20 +377,24 @@ export default function Portfolio() {
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
                         <video
                           key={(project as any).videos[0].src}
-                          src={(project as any).videos[0].src}
-                          autoPlay muted playsInline
+                          autoPlay={true} 
+                          muted={true} 
+                          playsInline={true}
+                          preload="auto"
                           style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videos[0].filter }}
                           onEnded={(e) => {
                             const vids: {src: string; filter: string}[] = (project as any).videos;
                             const vid = e.currentTarget;
-                            const currentSrc = vid.src.split('/').pop();
-                            const idx = vids.findIndex(v => v.src.includes(currentSrc || ''));
+                            const currentFile = vid.src.split('/').pop();
+                            const idx = vids.findIndex(v => v.src.includes(currentFile || ''));
                             const next = vids[(idx + 1) % vids.length];
-                            vid.style.filter = next.filter;
                             vid.src = next.src;
+                            vid.style.filter = next.filter;
                             vid.play();
                           }}
-                        />
+                        >
+                          <source src={(project as any).videos[0].src} type="video/mp4" />
+                        </video>
                       </div>
                     )}
 
