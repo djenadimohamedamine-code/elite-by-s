@@ -153,6 +153,21 @@ const PROJECTS = [
     files: ["Prompt design", "Upscale config", "4K Render"],
     image: "/images/nano-banana.jpg",
   },
+  {
+    id: "antigravity-ai",
+    title: "AI-Driven Development (Antigravity)",
+    subtitle: "Programmation assistée par Agent IA",
+    description:
+      "Expertise en développement 'AI-Native'. Utilisation d'Antigravity pour accélérer le prototypage, sécuriser le code et concevoir des architectures complexes en un temps record. Une symbiose entre ingénierie humaine et intelligence artificielle.",
+    tech: ["Antigravity AI", "System Prompts", "Code Orchestration", "Next.js"],
+    badge: "AI Coding",
+    badgeColor: "cyan" as const,
+    icon: MessageCircle,
+    gradient: "linear-gradient(135deg, rgba(0,242,255,0.08), rgba(167,139,250,0.04))",
+    border: "rgba(0,242,255,0.25)",
+    files: ["Workflow.md", "AgentConfig.json", "SystemPrompt.txt"],
+    image: "/images/antigravity.png",
+  },
 ];
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
