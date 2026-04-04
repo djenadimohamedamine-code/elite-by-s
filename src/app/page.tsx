@@ -71,7 +71,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(255,107,53,0.15), rgba(251,191,36,0.08))",
     border: "rgba(255,107,53,0.3)",
     files: ["lib/main.dart (39 KB)", "NdiCameraPreview.swift", "NDI 5/6 SDK"],
-    github: "https://github.com/djenadimohamedamine-code/MIMO_IOS",
+    localRoute: "/code/mimo-ndi-ios",
   },
   {
     id: "ptz-dashboard",
@@ -116,7 +116,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(255,107,53,0.1), rgba(251,191,36,0.06))",
     border: "rgba(255,107,53,0.25)",
     files: ["obd_service.dart", "dtc_scanner.dart", "dashboard.dart", "diagnostic.dart", "map_page.dart"],
-    github: "https://github.com/djenadimohamedamine-code/spark",
+    localRoute: "/code/mimo-spark",
   },
   {
     id: "elite-booking",
@@ -131,7 +131,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))",
     border: "rgba(139,92,246,0.25)",
     files: ["bookings.ts", "admin/page.tsx", "notifications-func.js"],
-    github: "https://github.com/djenadimohamedamine-code/elite-by-s",
+    localRoute: "/code/elite-booking",
   },
 ];
 
@@ -362,15 +362,15 @@ export default function Portfolio() {
                       ))}
                     </div>
 
-                    {/* GitHub Link */}
-                    {project.github && (
+                    {/* GitHub / Local Code Link */}
+                    {(project.localRoute || project.github) && (
                       <div style={{ marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1rem" }}>
-                        <a href={project.github} target="_blank" rel="noopener noreferrer"
+                        <a href={(project as any).localRoute || project.github} target={(project as any).localRoute ? "_self" : "_blank"} rel="noopener noreferrer"
                            style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 500, transition: "color 0.2s" }}
                            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
                            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}>
-                          <Github size={14} />
-                          Voir le code sur GitHub
+                           {(project as any).localRoute ? <Code2 size={14} /> : <Github size={14} />}
+                           {(project as any).localRoute ? "Explorer le code source" : "Voir sur GitHub"}
                           <ExternalLink size={10} style={{ opacity: 0.5 }} />
                         </a>
                       </div>
