@@ -164,7 +164,6 @@ const PROJECTS = [
       { src: "/videos/veo-4.mp4", filter: "none" },
     ],
   },
-  },
   {
     id: "antigravity-ai",
     title: "AI-Driven Development (Antigravity)",
@@ -230,9 +229,9 @@ export default function Portfolio() {
         color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <div className="status-dot" style={{ width: '5px', height: '5px' }} />
-            <span style={{ color: 'var(--accent-cyan)' }}>Signal Live</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: 'rgba(255,255,255,0.03)', padding: '0.15rem 0.6rem', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="heartbeat-dot" />
+            <span style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>LIVE_SYSTEM_ACTIVE</span>
           </div>
           <span>Uptime: 99.9%</span>
         </div>
@@ -524,30 +523,51 @@ export default function Portfolio() {
           <div className="divider divider-purple" />
           <p className="section-subtitle">Collaborations broadcast, développement ou consulting réseau</p>
 
-          <div className="card" style={{ borderColor: "rgba(139,92,246,0.3)", background: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))", maxWidth: 540 }}>
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", marginBottom: "1.5rem", lineHeight: "1.85" }}>
-                Disponible pour des projets en streaming broadcast, développement mobile Flutter/NDI, ou consulting infrastructure réseau.
-                Je travaille à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span> et suis ouvert à des missions complémentaires.
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <div className="contact-dashboard card-hover" style={{ maxWidth: 800, margin: "0 auto" }}>
+            <div style={{ position: "relative", zIndex: 1, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "3rem", alignItems: "center" }}>
+              <div>
+                <h3 style={{ fontSize: "1.5rem", color: "var(--text-primary)", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Zap size={24} color="var(--accent-cyan)" />
+                  Prêt pour le prochain défi
+                </h3>
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginBottom: "1.5rem", lineHeight: "1.85" }}>
+                  Disponible pour des projets de streaming broadcast, développement NDI natif (iOS/Android/PC), ou consulting infrastructure réseau.
+                  Expertise technique validée en environnement de production nationale (<span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span>).
+                </p>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <div style={{ padding: "0.75rem 1rem", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
+                    <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", textTransform: "uppercase", marginBottom: "0.25rem" }}>Localisation</div>
+                    <div style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 500 }}>Alger, Algérie (Remote possible)</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <a href="https://wa.me/213770945042?text=Bonjour%20Mohamed%20Amine,%20je%20viens%20depuis%20ton%20portfolio" id="contact-whatsapp"
                   target="_blank" rel="noopener noreferrer"
-                  className="btn btn-primary" style={{ justifyContent: "flex-start", width: "fit-content", background: "var(--gradient-cyan)", color: "#000" }}>
-                  <MessageCircle size={15} />
-                  WhatsApp : +213 770 94 50 42
+                  className="btn btn-primary" style={{ height: "3.5rem", padding: "0 1.5rem", background: "var(--gradient-cyan)", color: "#000", fontSize: "1rem" }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(0,0,0,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <MessageCircle size={18} />
+                  </div>
+                  WhatsApp Business
+                  <ChevronRight size={16} style={{ marginLeft: "auto", opacity: 0.5 }} />
                 </a>
+
                 <a href="mailto:djenadimohamedamine@gmail.com" id="contact-email"
-                  className="btn btn-outline" style={{ justifyContent: "flex-start", width: "fit-content" }}>
-                  <Mail size={15} color="var(--accent-purple)" />
-                  djenadimohamedamine@gmail.com
+                  className="btn btn-outline" style={{ height: "3.5rem", padding: "0 1.5rem", borderColor: "rgba(167,139,250,0.3)" }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(139,92,246,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Mail size={18} color="var(--accent-purple)" />
+                  </div>
+                  Email Professionnel
                 </a>
+
                 <a href="https://github.com/djenadimohamedamine-code" id="contact-github"
                   target="_blank" rel="noopener noreferrer"
-                  className="btn btn-outline" style={{ justifyContent: "flex-start", width: "fit-content" }}>
-                  <Github size={15} />
-                  github.com/djenadimohamedamine-code
-                  <ExternalLink size={11} style={{ opacity: 0.5 }} />
+                  className="btn btn-outline" style={{ height: "3.5rem", padding: "0 1.5rem" }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Github size={18} />
+                  </div>
+                  GitHub Studio
                 </a>
               </div>
             </div>
