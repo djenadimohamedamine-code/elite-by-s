@@ -88,6 +88,8 @@ const PROJECTS = [
     border: "rgba(0,229,255,0.3)",
     files: ["PTZ Controls (↑↓←→)", "HLS Player", "WebRTC Stream", "Tailscale Funnel"],
     github: "https://github.com/djenadimohamedamine-code",
+    video: "/videos/ptz-dashboard.mp4",
+    videoFilter: "brightness(0.9) contrast(1.15) saturate(1.1)",
   },
   {
     id: "ndi-tracking",
@@ -325,7 +327,7 @@ export default function Portfolio() {
                     {/* Optional Video Demo */}
                     {(project as any).video && (
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
-                        <video src={(project as any).video} autoPlay loop muted playsInline style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover" }} />
+                        <video src={(project as any).video} autoPlay loop muted playsInline style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }} />
                       </div>
                     )}
 
