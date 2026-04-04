@@ -90,6 +90,8 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,145,234,0.06))",
     border: "rgba(0,229,255,0.3)",
     files: ["PTZ Controls (↑↓←→)", "HLS Player", "WebRTC Stream", "Tailscale Funnel"],
+    video: "/videos/ptz-demo.mov",
+    videoFilter: "brightness(0.9) contrast(1.15) saturate(1.1)",
     github: "https://github.com/djenadimohamedamine-code",
   },
   {
@@ -105,6 +107,23 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.06))",
     border: "rgba(139,92,246,0.3)",
     files: ["Tracking sujet", "Alerte surexposition", "Alerte flou", "NDI Input"],
+    video: "/videos/ndi-vision.mp4",
+    github: "https://github.com/djenadimohamedamine-code",
+  },Refining NDI description for visibility:
+  {
+    id: "ndi-vision",
+    title: "NDI Vision — PC App",
+    subtitle: "Tracking IA & Surveillance Flou",
+    description:
+      "Surveillance multi-caméras NDI avec analyse temps réel. Détection automatique du flou (mise au point), de la surexposition et tracking de mouvement. Indispensable pour maintenir une qualité broadcast constante en régie.",
+    tech: ["NDI SDK", "OpenCV", "AI Tracking", "Python/C++"],
+    badge: "IA Vision",
+    badgeColor: "purple" as const,
+    icon: Eye,
+    gradient: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.06))",
+    border: "rgba(139,92,246,0.3)",
+    files: ["AI Blur Detection", "Overexposure Alert", "NDI Monitor"],
+    video: "/videos/ndi-vision.mp4",
     github: "https://github.com/djenadimohamedamine-code",
   },
   {
@@ -143,18 +162,24 @@ const PROJECTS = [
   },
   {
     id: "nano-banana",
-    title: "Nano Banana Photo IA",
+    title: "Nano Banana Photo IA (Veo3)",
     subtitle: "Génération & Traitement d'Image 4K",
     description:
-      "Showcase de création visuelle assistée par Intelligence Artificielle. Un workflow complet de prompt engineering et d'upscaling pour obtenir des rendus cinématographiques ultra-détaillés en résolution 4K.",
-    tech: ["AI Generation", "Prompt Engineering", "Upscaling 4K", "Midjourney/Veo"],
+      "Showcase de création visuelle assistée par Intelligence Artificielle Veo3. Workflow de prompt engineering et d'upscaling cinématographique. Analyse des rendus 4K et intégration dans des flux broadcast.",
+    tech: ["AI Generation", "Veo3", "Upscaling 4K", "Midjourney"],
     badge: "AI Art",
     badgeColor: "purple" as const,
     icon: BrainCircuit,
     gradient: "linear-gradient(135deg, rgba(167,139,250,0.1), rgba(236,72,153,0.06))",
     border: "rgba(167,139,250,0.3)",
     files: ["Prompt design", "Upscale config", "4K Render"],
-    image: "/images/nano-banana.jpg",
+    videos: [
+      { src: "/videos/veo-1.mp4", filter: "none" },
+      { src: "/videos/veo-2.mp4", filter: "none" },
+      { src: "/videos/veo-3.mp4", filter: "none" },
+      { src: "/videos/veo-4.mp4", filter: "none" },
+    ],
+  },
   },
   {
     id: "antigravity-ai",
@@ -297,9 +322,9 @@ export default function Portfolio() {
             maxWidth: "580px", color: "var(--text-secondary)",
             fontSize: "0.925rem", lineHeight: "1.85", marginBottom: "2.5rem",
           }}>
-            Ingénieur broadcast à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span>. 
+            Ingénieur broadcast à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span>.
             Je maîtrise la chaîne complète du signal vidéo : de la caméra PTZ au flux&nbsp;
-            <span style={{ color: "var(--accent-cyan)" }}>NDI/HLS/SRT/WebRTC</span>, 
+            <span style={{ color: "var(--accent-cyan)" }}>NDI/HLS/SRT/WebRTC</span>,
             en passant par l'étalonnage, le câblage réseau, et le développement d'applications mobiles sur mesure.
           </p>
 
@@ -380,10 +405,10 @@ export default function Portfolio() {
               const Icon = project.icon;
               return (
                 <div key={project.id} id={`project-${project.id}`} className="card"
-                  style={{ 
-                    borderColor: project.border, 
-                    background: project.gradient, 
-                    display: "flex", 
+                  style={{
+                    borderColor: project.border,
+                    background: project.gradient,
+                    display: "flex",
                     flexDirection: "column",
                     boxShadow: project.id === 'mimo-spark' ? '0 0 40px -20px var(--accent-orange)' : 'none'
                   }}
@@ -399,13 +424,13 @@ export default function Portfolio() {
                     {/* Optional Video Demo — single */}
                     {(project as any).video && (
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
-                        <video 
-                          autoPlay={true} 
-                          loop={true} 
-                          muted={true} 
-                          playsInline={true} 
+                        <video
+                          autoPlay={true}
+                          loop={true}
+                          muted={true}
+                          playsInline={true}
                           preload="auto"
-                          style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }} 
+                          style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }}
                         >
                           <source src={(project as any).video} type="video/mp4" />
                         </video>
@@ -417,24 +442,24 @@ export default function Portfolio() {
                       <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
                         <video
                           key={(project as any).videos[0].src}
-                          autoPlay={true} 
-                          muted={true} 
+                          autoPlay={true}
+                          muted={true}
                           playsInline={true}
                           preload="auto"
                           style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videos[0].filter }}
                           onEnded={(e) => {
-                            const vids: {src: string; filter: string}[] = (project as any).videos;
+                            const vids: { src: string; filter: string }[] = (project as any).videos;
                             const vid = e.currentTarget;
                             const currentSrc = vid.src;
                             const currentFile = currentSrc.split('/').pop();
-                            
+
                             // Find current video index
                             let idx = vids.findIndex(v => v.src.split('/').pop() === currentFile);
-                            
+
                             // Next video (looping)
                             const nextIdx = (idx + 1) % vids.length;
                             const next = vids[nextIdx];
-                            
+
                             vid.src = next.src;
                             vid.style.filter = next.filter || "none";
                             vid.load(); // Ensure next one loads
@@ -491,11 +516,11 @@ export default function Portfolio() {
                     {(project.localRoute || project.github) && (
                       <div style={{ marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1rem" }}>
                         <a href={(project as any).localRoute || project.github} target={(project as any).localRoute ? "_self" : "_blank"} rel="noopener noreferrer"
-                           style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 500, transition: "color 0.2s" }}
-                           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-                           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}>
-                           {(project as any).localRoute ? <Code2 size={14} /> : <Github size={14} />}
-                           {(project as any).localRoute ? "Explorer le code source" : "Voir sur GitHub"}
+                          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "var(--text-secondary)", fontWeight: 500, transition: "color 0.2s" }}
+                          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}>
+                          {(project as any).localRoute ? <Code2 size={14} /> : <Github size={14} />}
+                          {(project as any).localRoute ? "Explorer le code source" : "Voir sur GitHub"}
                           <ExternalLink size={10} style={{ opacity: 0.5 }} />
                         </a>
                       </div>
@@ -518,7 +543,7 @@ export default function Portfolio() {
           <div className="card" style={{ borderColor: "rgba(139,92,246,0.3)", background: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))", maxWidth: 540 }}>
             <div style={{ position: "relative", zIndex: 1 }}>
               <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", marginBottom: "1.5rem", lineHeight: "1.85" }}>
-                Disponible pour des projets en streaming broadcast, développement mobile Flutter/NDI, ou consulting infrastructure réseau. 
+                Disponible pour des projets en streaming broadcast, développement mobile Flutter/NDI, ou consulting infrastructure réseau.
                 Je travaille à <span style={{ color: "var(--accent-orange)", fontWeight: 600 }}>Echorouk TV</span> et suis ouvert à des missions complémentaires.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
