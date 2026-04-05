@@ -130,7 +130,7 @@ const PROJECTS = [
     ],
   },
   {
-    id: "elite-booking",
+    id: "booking-system",
     title: "Site Web & Réservation en Ligne",
     subtitle: "Création de Site Web & Système de Réservation",
     description:
@@ -142,7 +142,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.04))",
     border: "rgba(139,92,246,0.25)",
     files: ["bookings.ts", "admin/page.tsx", "notifications-func.js"],
-    localRoute: "/code/elite-booking",
+    localRoute: "/code/booking-system",
   },
   {
     id: "stm32-robot",
@@ -511,9 +511,9 @@ export default function Portfolio() {
                         </video>
                         <div style={{ position: "absolute", bottom: "0.5rem", right: "0.5rem", display: "flex", gap: "0.25rem" }}>
                           {(project as any).videos.map((_: any, idx: number) => (
-                            <div key={idx} style={{ 
-                              width: 4, height: 4, borderRadius: "50%", 
-                              background: (currentVideoIndices[project.id] || 0) === idx ? "var(--accent-cyan)" : "rgba(255,255,255,0.3)" 
+                            <div key={idx} style={{
+                              width: 4, height: 4, borderRadius: "50%",
+                              background: (currentVideoIndices[project.id] || 0) === idx ? "var(--accent-cyan)" : "rgba(255,255,255,0.3)"
                             }} />
                           ))}
                         </div>
@@ -527,23 +527,23 @@ export default function Portfolio() {
                           <ChevronRight size={14} />
                           Balayez (Swipe) pour voir les autres vidéos
                         </div>
-                        <div className="media-slideshow" style={{ 
-                          display: "flex", overflowX: "auto", overflowY: "hidden", 
+                        <div className="media-slideshow" style={{
+                          display: "flex", overflowX: "auto", overflowY: "hidden",
                           scrollSnapType: "x mandatory", gap: "0.75rem"
                         }}>
                           {(project as any).videos.map((vid: any, idx: number) => (
-                             <div key={idx} style={{ 
-                               flex: "0 0 90%", scrollSnapAlign: "center", 
-                               position: "relative", borderRadius: 12, overflow: "hidden", 
-                               aspectRatio: "16/9", background: "#000", border: "1px solid rgba(255,255,255,0.05)" 
-                             }}>
-                               <video
-                                 autoPlay loop muted playsInline
-                                 style={{ width: "100%", height: "100%", objectFit: "cover", filter: vid.filter || "none" }}
-                               >
-                                 <source src={vid.src} type="video/mp4" />
-                               </video>
-                             </div>
+                            <div key={idx} style={{
+                              flex: "0 0 90%", scrollSnapAlign: "center",
+                              position: "relative", borderRadius: 12, overflow: "hidden",
+                              aspectRatio: "16/9", background: "#000", border: "1px solid rgba(255,255,255,0.05)"
+                            }}>
+                              <video
+                                autoPlay loop muted playsInline
+                                style={{ width: "100%", height: "100%", objectFit: "cover", filter: vid.filter || "none" }}
+                              >
+                                <source src={vid.src} type="video/mp4" />
+                              </video>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -556,14 +556,14 @@ export default function Portfolio() {
                           <ChevronRight size={14} />
                           Balayez (Swipe) pour voir les rendus 4K
                         </div>
-                        <div className="media-slideshow" style={{ 
-                          display: "flex", overflowX: "auto", overflowY: "hidden", 
+                        <div className="media-slideshow" style={{
+                          display: "flex", overflowX: "auto", overflowY: "hidden",
                           scrollSnapType: "x mandatory", gap: "0.75rem"
                         }}>
                           {(project as any).gallery.map((imgTag: string, idx: number) => (
-                            <div key={idx} style={{ 
+                            <div key={idx} style={{
                               flex: "0 0 85%", scrollSnapAlign: "center",
-                              aspectRatio: "16/9", borderRadius: 8, overflow: "hidden", 
+                              aspectRatio: "16/9", borderRadius: 8, overflow: "hidden",
                               border: "1px solid rgba(255,255,255,0.05)", background: "rgba(255,255,255,0.02)",
                               position: "relative"
                             }} className="card-hover">
