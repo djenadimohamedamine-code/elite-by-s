@@ -1,12 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "MIMO-NDI | Djenadi Mohamed Amine — Broadcast Engineer & Developer",
   description: "Ingénieur broadcast à Echorouk TV. HLS, SRT, WebRTC, NDI SDK, PTZ Control, Flutter Apps, DaVinci Resolve, Étalonnage professionnel.",
   manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
   themeColor: "#080b14",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

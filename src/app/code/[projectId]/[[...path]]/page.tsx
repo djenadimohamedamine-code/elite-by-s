@@ -85,9 +85,9 @@ export default function CodeViewerPage(props: { params: { projectId: string; pat
 
   // Map project IDs to their respective code directories
   const projectDirs: Record<string, string> = {
-    'mimo-spark': path.join(process.cwd(), 'src/data/projects_code/spark'),
-    'mimo-ndi-ios': path.join(process.cwd(), 'src/data/projects_code/iphone'),
-    'booking-system': path.join(process.cwd(), 'src'),
+    'mimo-spark': path.join(/* turbopackIgnore: true */ process.cwd(), 'src/data/projects_code/spark'),
+    'mimo-ndi-ios': path.join(/* turbopackIgnore: true */ process.cwd(), 'src/data/projects_code/iphone'),
+    'booking-system': path.join(/* turbopackIgnore: true */ process.cwd(), 'src'),
   };
 
   const codeDir = projectDirs[projectId];
