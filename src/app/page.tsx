@@ -131,7 +131,7 @@ const PROJECTS = [
   },
   {
     id: "elite-booking",
-    title: "Elite By S — Site Web & Réservation",
+    title: "Site Web & Réservation en Ligne",
     subtitle: "Création de Site Web & Système de Réservation",
     description:
       "Création complète d'un site web haut de gamme avec système de réservation à créneaux en temps réel. Les clients réservent en ligne en quelques clics et reçoivent une confirmation instantanée. L'équipe reçoit une notification WhatsApp automatique avec les détails du rendez-vous — une expérience premium qui attire et fidélise les clients.",
@@ -158,6 +158,7 @@ const PROJECTS = [
     border: "rgba(255,107,53,0.3)",
     files: ["robot_move.cpp", "motor_control.h", "led_control.cpp", "main.cpp"],
     github: "https://github.com/djenadimohamedamine-code",
+    image: "/images/stm32-board.png",
   },
   {
     id: "veo-project",
