@@ -112,10 +112,10 @@ const PROJECTS = [
   },
   {
     id: "mimo-spark",
-    title: "Mimo Spark OBD-II",
+    title: "Mimo OBD-II Dashboard",
     subtitle: "Diagnostic Automobile Android",
     description:
-      "Application Android dédiée à la Chevrolet Spark (KWP2000). Dashboard temps réel : RPM, vitesse, température, carburant. Scanner DTC avec protocole KWP2000 Fast-Init (ATFI), calcul de vitesse par rapport de boîte, GPS et historique.",
+      "Application Android universelle de diagnostic OBD-II. Dashboard temps réel : RPM, vitesse, température, carburant. Scanner DTC avancé, calcul de vitesse par rapport de boîte, intégration GPS et historique des pannes.",
     tech: ["Flutter", "OBD-II", "KWP2000", "ELM327", "GPS", "Firebase"],
     badge: "Automotive",
     badgeColor: "orange" as const,
@@ -131,11 +131,11 @@ const PROJECTS = [
   },
   {
     id: "elite-booking",
-    title: "Elite By S — Booking PWA",
-    subtitle: "Application de Réservation",
+    title: "Elite By S — Site Web & Réservation",
+    subtitle: "Création de Site Web & Système de Réservation",
     description:
-      "PWA Next.js pour salon de beauté haut de gamme. Booking flow complet, dashboard admin temps réel Firestore, notifications WhatsApp automatiques. Déployée sur Vercel.",
-    tech: ["Next.js", "Firebase", "TypeScript", "PWA", "Vercel"],
+      "Création complète d'un site web haut de gamme avec système de réservation à créneaux en temps réel. Les clients réservent en ligne en quelques clics et reçoivent une confirmation instantanée. L'équipe reçoit une notification WhatsApp automatique avec les détails du rendez-vous — une expérience premium qui attire et fidélise les clients.",
+    tech: ["Next.js", "Firebase", "TypeScript", "PWA", "WhatsApp API", "Vercel"],
     badge: "Web App",
     badgeColor: "purple" as const,
     icon: Globe,
