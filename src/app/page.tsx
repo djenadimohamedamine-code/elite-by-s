@@ -145,6 +145,21 @@ const PROJECTS = [
     localRoute: "/code/elite-booking",
   },
   {
+    id: "stm32-robot",
+    title: "STM32 Robot 4WD",
+    subtitle: "Robotique Embarquée & Contrôle Moteur",
+    description:
+      "Conception et programmation d'un robot autonome 4 roues motrices sur châssis mécanique. Contrôle de deux moteurs DC via le driver L298N avec gestion PWM (vitesse) et logique de direction. Programmation embarquée en C++ sur microcontrôleur STM32 via Arduino IDE. Intégration du contrôle LED et architecture modulaire des fonctions de déplacement (avancer, reculer, tourner, arrêt d'urgence).",
+    tech: ["STM32", "L298N", "C++", "Arduino IDE", "PWM", "Embedded"],
+    badge: "Robotique",
+    badgeColor: "orange" as const,
+    icon: Cpu,
+    gradient: "linear-gradient(135deg, rgba(255,107,53,0.12), rgba(251,191,36,0.08))",
+    border: "rgba(255,107,53,0.3)",
+    files: ["robot_move.cpp", "motor_control.h", "led_control.cpp", "main.cpp"],
+    github: "https://github.com/djenadimohamedamine-code",
+  },
+  {
     id: "veo-project",
     title: "Veo 3 AI Video Generation",
     subtitle: "Génération de séquences génératives photoréalistes",
