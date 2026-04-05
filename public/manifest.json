@@ -1,11 +1,11 @@
 {
   "name": "MIMO-NDI",
   "short_name": "MIMO-NDI",
-  "description": "Réservez votre séance de beauté chez Elite By S.",
+  "description": "Portfolio professionnel de Djenadi Mohamed Amine — Broadcast Engineer & Developer",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#d4af37",
+  "theme_color": "#080b14",
   "icons": [
     {
       "src": "/icon-192.png",

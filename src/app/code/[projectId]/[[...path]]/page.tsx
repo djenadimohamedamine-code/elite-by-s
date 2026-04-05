@@ -87,7 +87,7 @@ export default function CodeViewerPage(props: { params: { projectId: string; pat
   const projectDirs: Record<string, string> = {
     'mimo-spark': path.join(process.cwd(), 'src/data/projects_code/spark'),
     'mimo-ndi-ios': path.join(process.cwd(), 'src/data/projects_code/iphone'),
-    'elite-booking': path.join(process.cwd(), 'src'),
+    'booking-system': path.join(process.cwd(), 'src'),
   };
 
   const codeDir = projectDirs[projectId];

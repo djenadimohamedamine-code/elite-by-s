@@ -38,7 +38,7 @@ export default function AdminDashboard() {
           <button 
             className="btn-primary w-full justify-center"
             onClick={() => {
-              if (password === "elite2024") { // Mot de passe par défaut
+              if (password === "mimo2026") { // Mot de passe par défaut
                 setIsAuthenticated(true);
               } else {
                 alert("Mot de passe incorrect");
