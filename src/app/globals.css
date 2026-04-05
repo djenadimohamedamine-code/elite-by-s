@@ -334,6 +334,30 @@ a { color: inherit; text-decoration: none; }
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.5rem !important;
   }
+
+  .card {
+    padding: 1.25rem !important;
+  }
+
+  .media-slideshow {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .media-slideshow::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  .card h3 {
+    white-space: normal !important;
+    font-size: 1rem !important;
+  }
+  .card p {
+    white-space: normal !important;
+  }
 }
 
 .contact-grid {
