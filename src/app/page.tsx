@@ -73,7 +73,6 @@ const PROJECTS = [
     files: ["Capture NDI", "Latency control", "Remote monitor", "Rec/Streaming"],
     videos: [
       { src: "/videos/ios-1.mp4", filter: "none" },
-      { src: "/videos/ios-2.mp4", filter: "none" },
     ],
     localRoute: "/code/mimo-ndi-ios",
   },
@@ -90,8 +89,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,145,234,0.06))",
     border: "rgba(0,229,255,0.3)",
     files: ["PTZ Controls (↑↓←→)", "HLS Player", "WebRTC Stream", "Tailscale Funnel"],
-    video: "/videos/ptz-demo.mov",
-    videoFilter: "brightness(0.9) contrast(1.15) saturate(1.1)",
+    image: "/images/stm32-board.png", // Use board as fallback for now
     github: "https://github.com/djenadimohamedamine-code",
   },
   {
@@ -126,7 +124,6 @@ const PROJECTS = [
     localRoute: "/code/mimo-spark",
     videos: [
       { src: "/videos/obd-spark-1.mp4", filter: "none" },
-      { src: "/videos/obd-spark-2.mp4", filter: "brightness(0.85) contrast(1.2) saturate(0.9)" },
     ],
   },
   {
@@ -177,7 +174,6 @@ const PROJECTS = [
       { src: "/videos/veo-1.mp4", filter: "none" },
       { src: "/videos/veo-2.mp4", filter: "none" },
       { src: "/videos/veo-3.mp4", filter: "none" },
-      { src: "/videos/veo-4.mp4", filter: "none" },
     ],
   },
   {
@@ -193,6 +189,7 @@ const PROJECTS = [
     gradient: "linear-gradient(135deg, rgba(167,139,250,0.1), rgba(236,72,153,0.06))",
     border: "rgba(167,139,250,0.3)",
     files: ["Prompt design", "Upscale config", "4K Render"],
+    image: "/images/nano-banana.jpg",
     gallery: [
       "/gallery/f7c27adf-20ec-4825-a9c2-5483b165c78d.png",
       "/gallery/1770829759726-019c4da9-425a-7de9-b041-1dfab2b5b693.png",
