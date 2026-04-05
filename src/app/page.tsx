@@ -369,10 +369,7 @@ export default function Portfolio() {
           </div>
 
           {/* Stats */}
-          <div style={{
-            display: "grid", gridTemplateColumns: "repeat(4, auto)", gap: "2rem",
-            paddingTop: "2rem", borderTop: "1px solid var(--border)", width: "fit-content",
-          }}>
+          <div className="stats-grid">
             {[
               { value: "NDI", label: "SDK maîtrisé" },
               { value: "HLS·SRT", label: "Streaming" },
@@ -611,7 +608,7 @@ export default function Portfolio() {
           <p className="section-subtitle">Collaborations broadcast, développement ou consulting réseau</p>
 
           <div className="contact-dashboard card-hover" style={{ maxWidth: 800, margin: "0 auto" }}>
-            <div style={{ position: "relative", zIndex: 1, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "3rem", alignItems: "center" }}>
+            <div className="contact-grid" style={{ position: "relative", zIndex: 1 }}>
               <div>
                 <h3 style={{ fontSize: "1.5rem", color: "var(--text-primary)", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
                   <Zap size={24} color="var(--accent-cyan)" />
@@ -650,7 +647,7 @@ export default function Portfolio() {
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: "1.3", overflow: "hidden" }}>
                     <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Email Professionnel</span>
-                    <span style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 500, whiteSpace: "nowrap", textOverflow: "ellipsis" }}>djenadimohamedamine@gmail.com</span>
+                    <span className="email-text" style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 500 }}>djenadimohamedamine@gmail.com</span>
                   </div>
                 </a>
 
