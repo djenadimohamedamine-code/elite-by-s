@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    BUILD_ID: Date.now().toString(),
+  },
 };
 
 export default nextConfig;
