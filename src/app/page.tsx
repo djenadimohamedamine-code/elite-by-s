@@ -145,23 +145,53 @@ const PROJECTS = [
     localRoute: "/code/elite-booking",
   },
   {
+    id: "veo-project",
+    title: "Veo 3 AI Video Generation",
+    subtitle: "Génération de séquences génératives photoréalistes",
+    description:
+      "Production experte de vidéos cinématographiques assistée par l'Intelligence Artificielle Veo 3. Maîtrise des workflows de prompt engineering appliqués au mouvement, à la cohérence temporelle et à l'intégration dans des flux broadcast.",
+    tech: ["AI Video", "Veo3", "Prompt Engineering"],
+    badge: "AI Video",
+    badgeColor: "cyan" as const,
+    icon: Film,
+    gradient: "linear-gradient(135deg, rgba(0,242,255,0.08), rgba(236,72,153,0.04))",
+    border: "rgba(0,242,255,0.3)",
+    files: ["Directing Prompt", "Camera Motion", "Video Render"],
+    videos: [
+      { src: "/videos/veo-1.mp4", filter: "none" },
+      { src: "/videos/veo-2.mp4", filter: "none" },
+      { src: "/videos/veo-3.mp4", filter: "none" },
+      { src: "/videos/veo-4.mp4", filter: "none" },
+    ],
+  },
+  {
     id: "nano-banana",
-    title: "Nano Banana Photo IA (Veo3)",
+    title: "Nano Banana Photo IA",
     subtitle: "Génération & Traitement d'Image 4K",
     description:
-      "Showcase de création visuelle assistée par Intelligence Artificielle Veo3. Workflow de prompt engineering et d'upscaling cinématographique. Analyse des rendus 4K et intégration dans des flux broadcast.",
-    tech: ["AI Generation", "Veo3", "Upscaling 4K", "Midjourney"],
+      "Création visuelle assistée par Intelligence Artificielle. Architecture de prompts avancés et techniques d'upscaling haute fidélité. Création de milliers de rendus 4K exploitables pour la production télévisuelle.",
+    tech: ["AI Image", "Upscaling 4K", "Midjourney"],
     badge: "AI Art",
     badgeColor: "purple" as const,
     icon: BrainCircuit,
     gradient: "linear-gradient(135deg, rgba(167,139,250,0.1), rgba(236,72,153,0.06))",
     border: "rgba(167,139,250,0.3)",
     files: ["Prompt design", "Upscale config", "4K Render"],
-    videos: [
-      { src: "/videos/veo-1.mp4", filter: "none" },
-      { src: "/videos/veo-2.mp4", filter: "none" },
-      { src: "/videos/veo-3.mp4", filter: "none" },
-      { src: "/videos/veo-4.mp4", filter: "none" },
+    gallery: [
+      "/images/nano-gallery/1766957159657-019b66da-5490-7cf9-b27b-47eb73dff00d.png",
+      "/images/nano-gallery/1767014353355-019b6a42-71bc-7bd5-869c-87f0e46ea046.jpeg",
+      "/images/nano-gallery/1767649542248-019b901e-b764-772a-b0f7-4e90373023c6.png",
+      "/images/nano-gallery/1767714517344-019b93fe-815a-7535-90b9-4c216ec768fd.png",
+      "/images/nano-gallery/1767791491897-019b9894-be37-7b7e-8100-2876734a8cba.jpeg",
+      "/images/nano-gallery/1768078291995-019ba9ac-8fa1-7e72-99c8-bbf65bf66a2e.png",
+      "/images/nano-gallery/1768491285300-019bc24a-d1d7-7eb2-9c18-ff4071a5a494.jpeg",
+      "/images/nano-gallery/1769703646137-019c0a8d-b57f-7415-9327-7dae6d536479.png",
+      "/images/nano-gallery/1769705061941-019c0aa3-423f-712c-8d17-345d4c838f69.jpeg",
+      "/images/nano-gallery/1769983704555-019c1b3f-3b83-7146-8849-cf702b52e219.png",
+      "/images/nano-gallery/1770208593958-019c28a7-2d34-7cb3-98eb-3b7de8ede7ab.png",
+      "/images/nano-gallery/1770233731520-019c2a25-e82f-7980-a4a3-4edeb89bbb28.png",
+      "/images/nano-gallery/1770494602576-019c39b3-4975-7cbc-9875-a98641bc8378.png",
+      "/images/nano-gallery/1770829759726-019c4da9-425a-7de9-b041-1dfab2b5b693.png",
     ],
   },
   {
@@ -186,6 +216,9 @@ const PROJECTS = [
 export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false);
   const [typed, setTyped] = useState("");
+  const [currentVideoIndices, setCurrentVideoIndices] = useState<Record<string, number>>(
+    Object.fromEntries(PROJECTS.map((p) => [p.id, 0]))
+  );
   const fullText = "Broadcast Engineer & Developer";
 
   useEffect(() => {
@@ -379,8 +412,8 @@ export default function Portfolio() {
       {/* ── PROJECTS ── */}
       <section id="projets" style={{ padding: "var(--section-gap) 0", position: "relative", zIndex: 1 }}>
         <div className="container">
-          <h2 className="section-title">Projets réalisés</h2>
-          <div className="divider divider-orange" />
+          <h2 className="section-title">Projets & Réalisations</h2>
+          <div className="divider divider-cyan" />
           <p className="section-subtitle">Applications déployées et systèmes opérationnels</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
@@ -397,60 +430,100 @@ export default function Portfolio() {
                   }}
                 >
                   <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", flex: 1 }}>
-                    {/* Optional Image Preview */}
-                    {(project as any).image && (
-                      <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
-                        <img src={(project as any).image} alt={project.title} style={{ width: "100%", maxHeight: "350px", display: "block", objectFit: "cover" }} />
-                      </div>
-                    )}
-
-                    {/* Optional Video Demo — single */}
-                    {(project as any).video && (
-                      <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
+                    {/* Media Section */}
+                    {/* 1. Sequential Videos (Standard Loop) */}
+                    {(project as any).videos && project.id !== "veo-project" && (
+                      <div style={{ position: "relative", width: "100%", borderRadius: 12, overflow: "hidden", aspectRatio: "16/9", marginBottom: "1.25rem", background: "#000", border: "1px solid rgba(255,255,255,0.05)" }}>
                         <video
-                          autoPlay={true}
-                          loop={true}
-                          muted={true}
-                          playsInline={true}
-                          preload="auto"
-                          style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videoFilter || "none" }}
-                        >
-                          <source src={(project as any).video} type="video/mp4" />
-                        </video>
-                      </div>
-                    )}
-
-                    {/* Optional Video Demo — multi-video sequential */}
-                    {(project as any).videos && (
-                      <div style={{ marginBottom: "1rem", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
-                        <video
-                          key={(project as any).videos[0].src}
-                          autoPlay={true}
-                          muted={true}
-                          playsInline={true}
-                          preload="auto"
-                          style={{ width: "100%", maxHeight: "250px", display: "block", objectFit: "cover", filter: (project as any).videos[0].filter }}
-                          onEnded={(e) => {
-                            const vids: { src: string; filter: string }[] = (project as any).videos;
-                            const vid = e.currentTarget;
-                            const currentSrc = vid.src;
-                            const currentFile = currentSrc.split('/').pop();
-
-                            // Find current video index
-                            let idx = vids.findIndex(v => v.src.split('/').pop() === currentFile);
-
-                            // Next video (looping)
-                            const nextIdx = (idx + 1) % vids.length;
-                            const next = vids[nextIdx];
-
-                            vid.src = next.src;
-                            vid.style.filter = next.filter || "none";
-                            vid.load(); // Ensure next one loads
-                            vid.play().catch(err => console.log("Autoplay blocked:", err));
+                          key={(project as any).videos[currentVideoIndices[project.id] || 0].src}
+                          autoPlay
+                          muted
+                          playsInline
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            filter: (project as any).videos[currentVideoIndices[project.id] || 0].filter || "none"
+                          }}
+                          onEnded={() => {
+                            const videos = (project as any).videos;
+                            setCurrentVideoIndices(prev => ({
+                              ...prev,
+                              [project.id]: (prev[project.id] + 1) % videos.length
+                            }));
                           }}
                         >
-                          <source src={(project as any).videos[0].src} type="video/mp4" />
+                          <source src={(project as any).videos[currentVideoIndices[project.id] || 0].src} type="video/mp4" />
                         </video>
+                        <div style={{ position: "absolute", bottom: "0.5rem", right: "0.5rem", display: "flex", gap: "0.25rem" }}>
+                          {(project as any).videos.map((_: any, idx: number) => (
+                            <div key={idx} style={{ 
+                              width: 4, height: 4, borderRadius: "50%", 
+                              background: (currentVideoIndices[project.id] || 0) === idx ? "var(--accent-cyan)" : "rgba(255,255,255,0.3)" 
+                            }} />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 1b. Swipeable Diaporama Videos (Veo Project) */}
+                    {(project as any).videos && project.id === "veo-project" && (
+                      <div style={{ marginBottom: "1.25rem" }}>
+                        <div style={{ fontSize: "0.75rem", color: "var(--accent-cyan)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+                          <ChevronRight size={14} />
+                          Balayez (Swipe) pour voir les autres vidéos
+                        </div>
+                        <div className="media-slideshow" style={{ 
+                          display: "flex", overflowX: "auto", overflowY: "hidden", 
+                          scrollSnapType: "x mandatory", gap: "0.75rem"
+                        }}>
+                          {(project as any).videos.map((vid: any, idx: number) => (
+                             <div key={idx} style={{ 
+                               flex: "0 0 90%", scrollSnapAlign: "center", 
+                               position: "relative", borderRadius: 12, overflow: "hidden", 
+                               aspectRatio: "16/9", background: "#000", border: "1px solid rgba(255,255,255,0.05)" 
+                             }}>
+                               <video
+                                 autoPlay loop muted playsInline
+                                 style={{ width: "100%", height: "100%", objectFit: "cover", filter: vid.filter || "none" }}
+                               >
+                                 <source src={vid.src} type="video/mp4" />
+                               </video>
+                             </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 2. Image Gallery (Diaporama AI Showcase) */}
+                    {(project as any).gallery && (
+                      <div style={{ marginBottom: "1.25rem" }}>
+                        <div style={{ fontSize: "0.75rem", color: "var(--accent-cyan)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+                          <ChevronRight size={14} />
+                          Balayez (Swipe) pour voir les rendus 4K
+                        </div>
+                        <div className="media-slideshow" style={{ 
+                          display: "flex", overflowX: "auto", overflowY: "hidden", 
+                          scrollSnapType: "x mandatory", gap: "0.75rem"
+                        }}>
+                          {(project as any).gallery.map((imgTag: string, idx: number) => (
+                            <div key={idx} style={{ 
+                              flex: "0 0 85%", scrollSnapAlign: "center",
+                              aspectRatio: "16/9", borderRadius: 8, overflow: "hidden", 
+                              border: "1px solid rgba(255,255,255,0.05)", background: "rgba(255,255,255,0.02)",
+                              position: "relative"
+                            }} className="card-hover">
+                              <img src={imgTag} alt="Render" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 3. Single Image Fallback */}
+                    {project.image && !(project as any).videos && !(project as any).gallery && (
+                      <div style={{ position: "relative", width: "100%", borderRadius: 12, overflow: "hidden", aspectRatio: "16/9", marginBottom: "1.25rem", border: "1px solid rgba(255,255,255,0.05)" }}>
+                        <img src={project.image} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       </div>
                     )}
 
@@ -545,20 +618,26 @@ export default function Portfolio() {
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <a href="https://wa.me/213770945042?text=Bonjour%20Mohamed%20Amine,%20je%20viens%20depuis%20ton%20portfolio" id="contact-whatsapp"
                   target="_blank" rel="noopener noreferrer"
-                  className="btn btn-primary" style={{ height: "3.5rem", padding: "0 1.5rem", background: "var(--gradient-cyan)", color: "#000", fontSize: "1rem" }}>
-                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(0,0,0,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  className="btn btn-primary" style={{ height: "auto", minHeight: "3.5rem", padding: "0.5rem 1.5rem", background: "var(--gradient-cyan)", color: "#000", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(0,0,0,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <MessageCircle size={18} />
                   </div>
-                  WhatsApp Business
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: "1.3" }}>
+                    <span style={{ fontSize: "0.75rem", opacity: 0.7, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>WhatsApp Business</span>
+                    <span style={{ fontSize: "1rem", fontWeight: 700 }}>+213 77 09 45 042</span>
+                  </div>
                   <ChevronRight size={16} style={{ marginLeft: "auto", opacity: 0.5 }} />
                 </a>
 
                 <a href="mailto:djenadimohamedamine@gmail.com" id="contact-email"
-                  className="btn btn-outline" style={{ height: "3.5rem", padding: "0 1.5rem", borderColor: "rgba(167,139,250,0.3)" }}>
-                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(139,92,246,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  className="btn btn-outline" style={{ height: "auto", minHeight: "3.5rem", padding: "0.5rem 1.5rem", borderColor: "rgba(167,139,250,0.3)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(139,92,246,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <Mail size={18} color="var(--accent-purple)" />
                   </div>
-                  Email Professionnel
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: "1.3", overflow: "hidden" }}>
+                    <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Email Professionnel</span>
+                    <span style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 500, whiteSpace: "nowrap", textOverflow: "ellipsis" }}>djenadimohamedamine@gmail.com</span>
+                  </div>
                 </a>
 
                 <a href="https://github.com/djenadimohamedamine-code" id="contact-github"
